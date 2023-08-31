@@ -13,3 +13,14 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Write permissions are only allowed to the owner of the object.
         return obj.user == request.user
+
+
+class IsOwnerAndAuthenticated(permissions.BasePermission):
+    """
+    Custom permission to only allow authenticated owners
+      of an object to edit it.
+    """
+    def has_object_permission(self, request, view, obj):
+        if not request.user.is_authenticated:
+            return False
+        return obj.user == request.user

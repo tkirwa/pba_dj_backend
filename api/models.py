@@ -59,3 +59,15 @@ class Income(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# User settings - currency_preference and timezone
+class Setting(models.Model):
+    # name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, related_name='settings',
+                                on_delete=models.CASCADE, null=True,
+                                default=1)
+    currency_preference = models.CharField(max_length=100,
+                                           default='Kenyan Shilling (KES)')
+    timezone = models.CharField(max_length=100,
+                                default='Eastern Time Zone (ET)')

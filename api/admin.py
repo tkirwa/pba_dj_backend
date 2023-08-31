@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Expense, ExpenseCategory, Income, IncomeCategory
+from .models import Setting
 
 # Customize Django Admin
 admin.site.site_header = "PBA :: Budget System"
@@ -30,3 +31,9 @@ class IncomeCategoryAdmin(admin.ModelAdmin):
 class IncomeAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "amount", "date")
     search_fields = ("name",)
+
+
+# Settings
+@admin.register(Setting)
+class SettingAdmin(admin.ModelAdmin):
+    list_display = ("user", "currency_preference", "timezone")

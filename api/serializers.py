@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Expense, ExpenseCategory, Income, IncomeCategory
+from .models import Setting
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
@@ -35,4 +36,11 @@ class IncomeCategorySerializer(serializers.HyperlinkedModelSerializer):
 class IncomeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Income
+        fields = '__all__'
+
+
+# Settings Serializer
+class SettingsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Setting
         fields = '__all__'

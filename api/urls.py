@@ -1,9 +1,15 @@
 from django.urls import path
 from . import views
-from .views import UserDetailView
+from .views import UserDetailView, ListSettingView, DetailSettingView
 
 
 urlpatterns = [
+    # List and create settings
+    path('settings/', ListSettingView.as_view(), name='list-settings'),
+
+    # Retrieve, update, and delete a specific setting
+    path('settings/<int:pk>/', DetailSettingView.as_view(),
+         name='setting-detail'),
 
     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
     # Expenses and Expense Categories Paths
