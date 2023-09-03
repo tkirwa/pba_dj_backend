@@ -47,13 +47,13 @@ class IncomeCategory(models.Model):
 
 class Income(models.Model):
     name = models.CharField(max_length=255)
-    category = models.ForeignKey(IncomeCategory, related_name='expenses',
+    category = models.ForeignKey(IncomeCategory, related_name='incomes',
                                  on_delete=models.SET_NULL,
                                  null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     date = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(User,
+    user = models.ForeignKey(User, related_name='incomes',
                              on_delete=models.SET_NULL, null=True,
                              default=1)
 

@@ -46,24 +46,24 @@ class DetailExpenseCategory(generics.RetrieveUpdateDestroyAPIView):
 class ListIncome(generics.ListCreateAPIView):
     queryset = Income.objects.all()
     serializer_class = IncomeSerializer
-    permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
+    # permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
 
 
 class DetailIncome(generics.RetrieveUpdateDestroyAPIView):
     queryset = Income.objects.all()
     serializer_class = IncomeSerializer
-    permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
+    # permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
 
 
 # Create, List, Retrieve and Destroy Income Category
 class ListIncomeCategory(generics.ListCreateAPIView):
     queryset = IncomeCategory.objects.all()
     serializer_class = IncomeCategorySerializer
-    permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
+    # permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
 
-    def get_queryset(self):
-        user = self.request.user
-        return Expense.objects.filter(user=user)
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return IncomeCategory.objects.filter(user=user)
 
 
 class DetailIncomeCategory(generics.RetrieveUpdateDestroyAPIView):
