@@ -1,9 +1,10 @@
-from rest_framework import viewsets, permissions, generics
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from knox.models import AuthToken
 from .serializers import CreateUserSerializer, UserSerializer
 from .serializers import LoginUserSerializer
 from knox.models import AuthToken
+from knox.auth import TokenAuthentication
 
 
 class RegistrationAPI(generics.GenericAPIView):
@@ -42,3 +43,14 @@ class UserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class LogoutView(generics.DestroyAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def destroy(self, request, *args, **kwargs):
+        # To logout, we simply invalidate the user's token
+        request.auth.delete()
+        return Response({'message': 'Logout successful'},
+                        status=status.HTTP_204_NO_CONTENT)

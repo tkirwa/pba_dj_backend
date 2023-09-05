@@ -21,13 +21,16 @@ class ExpenseCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
+    category = serializers.CharField(source='category.name')
+
     class Meta:
         model = Expense
-        fields = '__all__'
+        fields = ('id', 'name', 'category', 'amount', 'date')
 
 
 # IncomeCategorySerializer and IncomeSerializer
 class IncomeCategorySerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = IncomeCategory
         fields = '__all__'

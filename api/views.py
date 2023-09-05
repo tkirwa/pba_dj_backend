@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer
 
 from api.permissions import IsOwnerOrReadOnly, IsOwnerAndAuthenticated
+from rest_framework.permissions import IsAuthenticated
+
+from knox.auth import TokenAuthentication
 
 from .models import Expense, Income, ExpenseCategory, IncomeCategory
 from .models import Setting
@@ -24,35 +27,51 @@ class ListExpense(generics.ListCreateAPIView):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
     permission_classes = [IsOwnerOrReadOnly]  # Apply custom permission
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        return Expense.objects.filter(user=self.request.user)
 
 
 class DetailExpense(generics.RetrieveUpdateDestroyAPIView):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
 
 # Create, List, Retrieve and Destroy Expense Categories
 class ListExpenseCategory(generics.ListCreateAPIView):
     queryset = ExpenseCategory.objects.all()
     serializer_class = ExpenseCategorySerializer
+    # permission_classes = [IsAuthenticated]
 
 
 class DetailExpenseCategory(generics.RetrieveUpdateDestroyAPIView):
     queryset = ExpenseCategory.objects.all()
     serializer_class = ExpenseCategorySerializer
+    # permission_classes = [IsAuthenticated]
 
 
 # Create, List, Retrieve and Destroy Income
 class ListIncome(generics.ListCreateAPIView):
     queryset = Income.objects.all()
     serializer_class = IncomeSerializer
-    # permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        return Income.objects.filter(user=self.request.user)
 
 
 class DetailIncome(generics.RetrieveUpdateDestroyAPIView):
     queryset = Income.objects.all()
     serializer_class = IncomeSerializer
     # permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
 
 # Create, List, Retrieve and Destroy Income Category
@@ -75,7 +94,12 @@ class DetailIncomeCategory(generics.RetrieveUpdateDestroyAPIView):
 class ListSettingView(generics.ListCreateAPIView):
     queryset = Setting.objects.all()
     serializer_class = SettingsSerializer
-    permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_queryset(self):
+        return Setting.objects.filter(user=self.request.user)
 
 
 class DetailSettingView(generics.RetrieveUpdateDestroyAPIView):

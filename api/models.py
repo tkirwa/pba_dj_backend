@@ -25,7 +25,7 @@ class Expense(models.Model):
 
     date = models.DateTimeField(default=timezone.now)
 
-    user = models.ForeignKey(User,
+    user = models.ForeignKey(User, related_name='expenses',
                              on_delete=models.SET_NULL, null=True,
                              default=1)
 
