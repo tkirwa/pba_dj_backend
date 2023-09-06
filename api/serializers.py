@@ -7,10 +7,14 @@ from rest_framework import serializers
 
 
 # UserSerializer
-class UserSerializer(serializers.ModelSerializer):
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = '__all__'
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('url', 'id', 'username', 'email', 'first_name', 'last_name')
 
 
 # ExpenseCategorySerializer and ExpenseSerializer
@@ -21,11 +25,25 @@ class ExpenseCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.CharField(source='category.name')
+    # category = serializers.CharField(source='category.name')
 
     class Meta:
         model = Expense
-        fields = ('id', 'name', 'category', 'amount', 'date')
+        fields = '__all__'
+
+    #     fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
+
+    # def create(self, validated_data):
+    #     # Extract the category_name from validated_data
+    #     category_name = validated_data.pop('category_name')
+
+    #     # Find or create the ExpenseCategory based on the category_name
+    #     category, created = ExpenseCategory.objects.get_or_create(
+    #         name=category_name)
+
+    #     # Create the Expense object with the category
+    #     expense = Expense.objects.create(category=category, **validated_data)
+    #     return expense
 
 
 # IncomeCategorySerializer and IncomeSerializer

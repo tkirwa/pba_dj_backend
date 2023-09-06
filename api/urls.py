@@ -17,7 +17,7 @@ urlpatterns = [
          name='expensecategory-list'),
     path('expense-categories/<int:pk>/', views.DetailExpenseCategory.as_view(),
          name='expensecategory-detail'),
-    path('expenses/', views.ListExpense.as_view(),
+    path('expenses/', views.ListCreateExpense.as_view(),
          name='expense-list'),
     path('expenses/<int:pk>/', views.DetailExpense.as_view(),
          name='expense-detail'),
@@ -27,7 +27,7 @@ urlpatterns = [
          name='incomecategory-list'),
     path('income-categories/<int:pk>/', views.DetailIncomeCategory.as_view(),
          name='incomecategory-detail'),
-    path('incomes/', views.ListIncome.as_view(), name='income-list'),
+    path('incomes/', views.ListCreateIncome.as_view(), name='income-list'),
     path('incomes/<int:pk>/', views.DetailIncome.as_view(),
          name='income-detail'),
 ]

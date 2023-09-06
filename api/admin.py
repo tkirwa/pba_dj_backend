@@ -17,7 +17,7 @@ class ExpenseCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "amount", "date")
+    list_display = ("name", "category", "amount", "date", "user")
     search_fields = ("name",)
 
 
