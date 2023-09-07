@@ -41,7 +41,7 @@ class ListCreateExpense(generics.ListCreateAPIView):
 class DetailExpense(generics.RetrieveUpdateDestroyAPIView):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
 

@@ -7,14 +7,15 @@ from rest_framework import serializers
 
 
 # UserSerializer
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = '__all__'
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'email', 'first_name', 'last_name')
+        fields = '__all__'
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ('url', 'id', 'username', 'email', 'first_name',
+# 'last_name')
 
 
 # ExpenseCategorySerializer and ExpenseSerializer
@@ -24,14 +25,25 @@ class ExpenseCategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
+# class ExpenseSerializer(serializers.ModelSerializer):
+#     category = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = Expense
+#         fields = ('url', 'name', 'amount', 'date', 'category', 'user')
+
+#     def get_category_name(self, obj):
+#         return obj.category.name if obj.category else None
+
+
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
-    # category = serializers.CharField(source='category.name')
+    category = serializers.CharField(source='category.name')
 
     class Meta:
         model = Expense
-        fields = '__all__'
+        # fields = '__all__'
 
-    #     fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
+        fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
 
     # def create(self, validated_data):
     #     # Extract the category_name from validated_data
@@ -55,9 +67,12 @@ class IncomeCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class IncomeSerializer(serializers.HyperlinkedModelSerializer):
+    category = serializers.CharField(source='category.name')
+
     class Meta:
         model = Income
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
 
 
 # Settings Serializer

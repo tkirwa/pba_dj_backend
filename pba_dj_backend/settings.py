@@ -61,7 +61,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Example: Allow your frontend app's origin
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",  # Example: Allow your frontend app's origin
+    # Example: Allow your frontend app's origin
     # 'https://yourfrontendapp.com',  # Add your actual frontend app's domain
 ]
 
