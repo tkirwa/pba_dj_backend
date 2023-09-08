@@ -60,12 +60,17 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",  # Example: Allow your frontend app's origin
-    # Example: Allow your frontend app's origin
-    # 'https://yourfrontendapp.com',  # Add your actual frontend app's domain
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://localhost:5000",
+#     "http://127.0.0.1:3000",
+#     "http://34.204.95.241",  # Add your IP address here
+#     # Example: Allow your frontend app's origin
+#     # Example: Allow your frontend app's origin
+#     # 'https://yourfrontendapp.com',  # Add your actual frontend app's domain
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
