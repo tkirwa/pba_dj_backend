@@ -1,6 +1,16 @@
-# MVP – Personal Budget Assistant Backend
+# PBA :: Personal Budget Assistant
 
-This is the backend component of the MVP (Minimum Viable Product) for the Personal Budget Assistant application. It is built using Django and Django Restframework and uses PostgreSQL as the database. Authentication is handled using Django Knox.
+## Introduction
+
+PBA (Personal Budget Assistant) is a web-based budget management system that helps individuals track their expenses and income effectively. This README provides information about the project, its installation, usage, and how to contribute.
+
+- **Frontend:** [PBA Budget System (React TypeScript)](https://www.realmigo.tech/)
+- **Backend:** [PBA Budget System API (Django)](https://api.realmigo.tech/admin/)
+- **Author's LinkedIn:** [Tonny Kirwa](https://www.linkedin.com/in/tonny-kirwa-957ba0104/)
+
+**Final Project Blog Article**: [Link to Blog Article](https://www.example.com/blog)
+
+![PBA Screenshot](https://raw.githubusercontent.com/tkirwa/pda_dj_frontend/main/src/assets/images/pda_screenshot_2023_09_13_11_03_48.png)
 
 ## Technologies Used
 
@@ -8,55 +18,101 @@ This is the backend component of the MVP (Minimum Viable Product) for the Person
 - Django Restframework
 - PostgreSQL
 - Django Knox
+  
+## Installation
 
-## Getting Started
+### Backend - PBA Budget System API (Django + DJRF + PostgreSQL)
 
-1. Clone the repository: `git clone https://github.com/your-username/pba_backend.git`
-2. Navigate to the project directory: `cd pba_backend`
-3. Create a virtual environment: `python3 -m venv venv`
-4. Activate the virtual environment: `source venv/bin/activate`
-5. Install dependencies: `pip install -r requirements.txt`
-6. Set up the database: `python manage.py migrate`
-7. Start the development server: `python manage.py runserver`
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/tkirwa/pba_dj_backend.git
+   cd pba-backend
+   ```
+
+2. Create a virtual environment and activate it (recommended):
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Configure the database in the `settings.py` file.
+
+5. Apply database migrations:
+
+   ```bash
+   python manage.py migrate
+   ```
+
+6. Create a superuser account for administration:
+
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+7. Start the development server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+The backend API should now be running at `http://localhost:8000/`.
+
+### Frontend - PBA Budget System (React JS)
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/tkirwa/pda_dj_frontend.git
+   cd pba-frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+The frontend application should now be running at `http://localhost:3000/`.
 
 ## Usage
 
-This backend provides APIs for user registration, authentication, and handling budget-related data.
+- Open the PBA Budget System frontend in your browser.
+- Sign up for an account or log in if you already have one.
+- Start adding your expenses and income to track your budget effectively.
 
 ## Contributing
 
-Contributions are welcome! Please follow the standard GitHub flow for making contributions.
+Contributions to this project are welcome! To contribute:
 
----
+1. Fork the repository on GitHub.
+2. Clone your forked repository to your local machine.
+3. Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature-name`.
+4. Make your changes and commit them: `git commit -m 'Add some feature'`.
+5. Push your changes to your forked repository: `git push origin feature/your-feature-name`.
+6. Create a pull request on the original repository.
 
-**pba_frontend**
+Please ensure your pull request follows the project's coding standards and conventions.
 
-# MVP – Personal Budget Assistant Frontend
+## Related Projects
 
-This is the frontend component of the MVP (Minimum Viable Product) for the Personal Budget Assistant application. It is built using React and TypeScript for enhanced type safety. Visualization is done using Plotly for complex visualizations and Chart.js for simpler charts.
+- [PBA :: Personal Budget Backend API - Django)](https://github.com/tkirwa/pba_dj_backend)
+- [PBA :: Frontend - PBA Budget System (React JS (TypeScript)))](https://github.com/tkirwa/pda_dj_frontend)
 
-## Technologies Used
 
-- React
-- TypeScript
-- Plotly
-- Chart.js
+## Licensing
 
-## Getting Started
-
-1. Clone the repository: `git clone https://github.com/your-username/pba_frontend.git`
-2. Navigate to the project directory: `cd pba_frontend`
-3. Install dependencies: `npm install`
-4. Start the development server: `npm start`
-
-## Usage
-
-This frontend interacts with the backend APIs to provide users with a personalized budget management experience. It includes user registration, login, dashboard, and visualization of budget data.
-
-## Contributing
-
-Contributions are welcome! Please follow the standard GitHub flow for making contributions.
-
----
-
-Feel free to replace `your-username` with your actual GitHub username and modify the instructions as needed.
+This project is open-source and available under the [MIT License](LICENSE).
