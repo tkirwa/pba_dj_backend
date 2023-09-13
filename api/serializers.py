@@ -77,6 +77,10 @@ class IncomeSerializer(serializers.HyperlinkedModelSerializer):
 
 # Settings Serializer
 class SettingsSerializer(serializers.HyperlinkedModelSerializer):
+    # Use the UserSerializer to display user information
+    user = UserSerializer()
+
     class Meta:
         model = Setting
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ('url', 'id', 'currency_preference', 'timezone', 'user')

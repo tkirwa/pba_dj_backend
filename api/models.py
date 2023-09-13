@@ -33,7 +33,7 @@ class Expense(models.Model):
         return self.name
 
 
-# Income Category & Model
+# Income Category Model
 class IncomeCategory(models.Model):
     class Meta:
         verbose_name_plural = " Income Categories"
@@ -45,6 +45,7 @@ class IncomeCategory(models.Model):
         return self.name
 
 
+# Income Model
 class Income(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(IncomeCategory, related_name='incomes',

@@ -1,15 +1,11 @@
 # apis/views.py
 from rest_framework import generics
-
 from rest_framework.generics import RetrieveAPIView
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
-
 from api.permissions import IsOwnerOrReadOnly, IsOwnerAndAuthenticated
 from rest_framework.permissions import IsAuthenticated
-
 from knox.auth import TokenAuthentication
-
 from .models import Expense, Income, ExpenseCategory, IncomeCategory
 from .models import Setting
 from .serializers import ExpenseSerializer, IncomeSerializer
@@ -17,15 +13,17 @@ from .serializers import ExpenseCategorySerializer, IncomeCategorySerializer
 from .serializers import SettingsSerializer
 
 
+# Define a view to retrieve user details
 class UserDetailView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-# Create, List, Retrieve and Destroy Expense
+# Create, List, Retrieve, and Destroy Expense
 class ListCreateExpense(generics.ListCreateAPIView):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
+    # Require authentication to access this view
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
@@ -34,7 +32,8 @@ class ListCreateExpense(generics.ListCreateAPIView):
         return Expense.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        # Set the user field to the currently authenticated user
+        # Set the user field to the currently authenticated
+        #  user when creating a new expense
         serializer.save(user=self.request.user)
 
 
@@ -45,7 +44,7 @@ class DetailExpense(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
 
 
-# Create, List, Retrieve and Destroy Expense Categories
+# Create, List, Retrieve, and Destroy Expense Categories
 class ListExpenseCategory(generics.ListCreateAPIView):
     queryset = ExpenseCategory.objects.all()
     serializer_class = ExpenseCategorySerializer
@@ -58,12 +57,11 @@ class DetailExpenseCategory(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsAuthenticated]
 
 
-# Create, List, Retrieve and Destroy Income
+# Create, List, Retrieve, and Destroy Income
 class ListCreateIncome(generics.ListCreateAPIView):
     queryset = Income.objects.all()
     serializer_class = IncomeSerializer
-    permission_classes = [IsOwnerOrReadOnly]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
@@ -78,12 +76,11 @@ class DetailIncome(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
 
 
-# Create, List, Retrieve and Destroy Income Category
+# Create, List, Retrieve, and Destroy Income Category
 class ListIncomeCategory(generics.ListCreateAPIView):
     queryset = IncomeCategory.objects.all()
     serializer_class = IncomeCategorySerializer
     # permission_classes = [IsOwnerOrReadOnly, IsOwnerAndAuthenticated]
-
     # def get_queryset(self):
     #     user = self.request.user
     #     return IncomeCategory.objects.filter(user=user)
@@ -98,8 +95,7 @@ class DetailIncomeCategory(generics.RetrieveUpdateDestroyAPIView):
 class ListSettingView(generics.ListCreateAPIView):
     queryset = Setting.objects.all()
     serializer_class = SettingsSerializer
-    permission_classes = [IsOwnerOrReadOnly]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
     authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
