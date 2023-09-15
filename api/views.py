@@ -1,5 +1,6 @@
 # apis/views.py
 from rest_framework import generics
+
 from rest_framework.generics import RetrieveAPIView
 from django.contrib.auth.models import User
 from .serializers import UserSerializer

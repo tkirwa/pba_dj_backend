@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
+from rest_framework import status
+from rest_framework.response import Response
+
 
 # UserSerializer
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,25 +40,41 @@ class ExpenseCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.CharField(source='category.name')
+    category = serializers.CharField()
 
     class Meta:
         model = Expense
-        # fields = '__all__'
-
         fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
 
-    # def create(self, validated_data):
-    #     # Extract the category_name from validated_data
-    #     category_name = validated_data.pop('category_name')
+    def create(self, validated_data):
+        # Extract the category_name from the validated data
+        category = validated_data.pop('category', None)
 
-    #     # Find or create the ExpenseCategory based on the category_name
-    #     category, created = ExpenseCategory.objects.get_or_create(
-    #         name=category_name)
+        # Create or retrieve the ExpenseCategory instance based on the name
+        if category:
+            category, _ = ExpenseCategory.objects.get_or_create(name=category)
+            validated_data['category'] = category
 
-    #     # Create the Expense object with the category
-    #     expense = Expense.objects.create(category=category, **validated_data)
-    #     return expense
+        # Create the Expense instance
+        expense = Expense.objects.create(**validated_data)
+
+        return expense
+
+    def update(self, instance, validated_data):
+        # Update the instance with the validated data
+        instance.name = validated_data.get('name', instance.name)
+        instance.amount = validated_data.get('amount', instance.amount)
+        instance.date = validated_data.get('date', instance.date)
+
+        # Retrieve or create the ExpenseCategory instance
+        category_data = validated_data.get('category')
+        category, _ = ExpenseCategory.objects.get_or_create(name=category_data)
+        instance.category = category
+
+        # Save the instance
+        instance.save()
+
+        return instance
 
 
 # IncomeCategorySerializer and IncomeSerializer
@@ -67,12 +86,42 @@ class IncomeCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class IncomeSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.CharField(source='category.name')
+    category = serializers.CharField()
 
     class Meta:
         model = Income
         # fields = '__all__'
         fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
+
+    def create(self, validated_data):
+        # Extract the category_name from the validated data
+        category = validated_data.pop('category', None)
+
+        # Create or retrieve the IncomeCategory instance based on the name
+        if category:
+            category, _ = IncomeCategory.objects.get_or_create(name=category)
+            validated_data['category'] = category
+
+        # Create the Income instance
+        income = Income.objects.create(**validated_data)
+
+        return income
+
+    def update(self, instance, validated_data):
+        # Update the instance with the validated data
+        instance.name = validated_data.get('name', instance.name)
+        instance.amount = validated_data.get('amount', instance.amount)
+        instance.date = validated_data.get('date', instance.date)
+
+        # Retrieve or create the ExpenseCategory instance
+        category_data = validated_data.get('category')
+        category, _ = IncomeCategory.objects.get_or_create(name=category_data)
+        instance.category = category
+
+        # Save the instance
+        instance.save()
+
+        return instance
 
 
 # Settings Serializer
