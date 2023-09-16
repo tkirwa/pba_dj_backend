@@ -29,7 +29,7 @@ class IncomeCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Income)
 class IncomeAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "amount", "date")
+    list_display = ("name", "category", "amount", "date", "user")
     search_fields = ("name",)
 
 
