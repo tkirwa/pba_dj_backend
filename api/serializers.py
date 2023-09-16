@@ -28,19 +28,9 @@ class ExpenseCategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-# class ExpenseSerializer(serializers.ModelSerializer):
-#     category = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = Expense
-#         fields = ('url', 'name', 'amount', 'date', 'category', 'user')
-
-#     def get_category_name(self, obj):
-#         return obj.category.name if obj.category else None
-
-
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     category = serializers.CharField()
+    user = serializers.CharField()
 
     class Meta:
         model = Expense
@@ -87,10 +77,10 @@ class IncomeCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class IncomeSerializer(serializers.HyperlinkedModelSerializer):
     category = serializers.CharField()
+    user = serializers.CharField()
 
     class Meta:
         model = Income
-        # fields = '__all__'
         fields = ('url', 'id', 'name', 'category', 'amount', 'date', 'user')
 
     def create(self, validated_data):
