@@ -25,7 +25,7 @@ class ExpenseCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     category = serializers.CharField()
-    user = serializers.CharField()
+    # user = serializers.CharField()
 
     class Meta:
         model = Expense
@@ -72,7 +72,7 @@ class IncomeCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class IncomeSerializer(serializers.HyperlinkedModelSerializer):
     category = serializers.CharField()
-    user = serializers.CharField()
+    # user = serializers.CharField()
 
     class Meta:
         model = Income
