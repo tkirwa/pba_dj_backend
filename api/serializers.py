@@ -40,6 +40,9 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
             category, _ = ExpenseCategory.objects.get_or_create(name=category)
             validated_data['category'] = category
 
+        # Automatically set the authenticated user as the "user" field
+        validated_data['user'] = self.context['request'].user
+
         # Create the Expense instance
         expense = Expense.objects.create(**validated_data)
 
@@ -86,6 +89,9 @@ class IncomeSerializer(serializers.HyperlinkedModelSerializer):
         if category:
             category, _ = IncomeCategory.objects.get_or_create(name=category)
             validated_data['category'] = category
+
+        # Automatically set the authenticated user as the "user" field
+        validated_data['user'] = self.context['request'].user
 
         # Create the Income instance
         income = Income.objects.create(**validated_data)
