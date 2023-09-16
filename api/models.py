@@ -26,8 +26,7 @@ class Expense(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     user = models.ForeignKey(User, related_name='expenses',
-                             on_delete=models.SET_NULL, null=True,
-                             default=1)
+                             on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
@@ -55,8 +54,7 @@ class Income(models.Model):
 
     date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, related_name='incomes',
-                             on_delete=models.SET_NULL, null=True,
-                             default=1)
+                             on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name

@@ -14,11 +14,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('url', 'id', 'username', 'email', 'first_name',
-# 'last_name')
 
 
 # ExpenseCategorySerializer and ExpenseSerializer
